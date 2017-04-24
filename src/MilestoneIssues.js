@@ -5,6 +5,14 @@ import {
   Modal,
 } from 'react-bootstrap';
 import MarkdownIt from 'markdown-it';
+import DOMPurify from 'dompurify';
+
+DOMPurify.addHook('afterSanitizeAttributes', function(node) {
+  if ('target' in node) {
+    node.setAttribute('target','_blank');
+    node.setAttribute('rel', 'noopener noreferrer');
+  }
+});
 
 const md = new MarkdownIt({
   linkify: true,
@@ -93,7 +101,7 @@ class MilestoneIssues extends Component {
             <Modal.Title>{modalIssue.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div dangerouslySetInnerHTML={{__html: md.render(modalIssue.body)}} />
+            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(md.render(modalIssue.body))}} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={(e) => { this.closeModal() }}>Close</Button>

@@ -68,7 +68,7 @@ class Home extends Component {
 
         <FormGroup controlId="milestone">
           <ControlLabel>Select Milestone</ControlLabel>
-          <div class="list-group">
+          <div className="list-group">
             {milestoneLinks}
           </div>
         </FormGroup>

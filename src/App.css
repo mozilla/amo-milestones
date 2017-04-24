@@ -8,3 +8,12 @@
   color: #999;
 }
 
+.avatar {
+  border-radius: 50%;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.modal-body img {
+  max-width: 100%;
+}

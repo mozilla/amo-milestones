@@ -3,6 +3,7 @@ export const GITHUB_ORG = 'mozilla'
 export const REPOS = [
   'addons',
   'addons-frontend',
+  'addons-linter',
   'addons-server',
 ];
 const VALID_MILESTONE_RX = /^\d{4}[.-]\d{2}[.-]\d{2}$/

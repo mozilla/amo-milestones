@@ -59,9 +59,9 @@ class Home extends Component {
             <ControlLabel>Select Repo to use as milestone source:</ControlLabel>
             <FormControl componentClass="select" placeholder="select"
               value={this.state.repoMilestoneSource} onChange={this.handleMilestoneSourceChange}>
-              <option value="addons">addons</option>
-              <option value="addons-server">addons-server</option>
-              <option value="addons-frontend">addons-frontend</option>
+              { REPOS.map((repo, idx) => (
+                <option key={`repo-${idx}`} value="{repo}">{repo}</option>
+              ))}
             </FormControl>
           </FormGroup>
         </Form>

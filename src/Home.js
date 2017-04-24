@@ -5,7 +5,9 @@ import {
   FormControl,
   FormGroup,
 } from 'react-bootstrap';
+
 import Client, { REPOS }  from './Client';
+import RemainingRequests from './RemainingRequests';
 
 
 class Home extends Component {
@@ -45,7 +47,8 @@ class Home extends Component {
   }
 
   render() {
-    const milestoneLinks = this.state.milestones.map((milestone, idx) => (
+    const data = this.state.milestones;
+    const milestoneLinks = data.map((milestone, idx) => (
       <a className="list-group-item" key={idx} href={`/milestone/${milestone.title}/issues/`}>
         {milestone.title}
         <span className="label label-success pull-right">OPEN</span>
@@ -72,6 +75,10 @@ class Home extends Component {
             {milestoneLinks}
           </div>
         </FormGroup>
+
+        <footer>
+          <RemainingRequests {...data} />
+        </footer>
       </main>
     );
   }

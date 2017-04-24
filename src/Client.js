@@ -48,7 +48,12 @@ function checkStatus(response) {
 }
 
 function parseJSON(response) {
-  return response.json();
+   return response.json()
+    .then((json) => {
+      json['ratelimitLimit'] = parseInt(response.headers.get('x-rateLimit-limit'), 10);
+      json['ratelimitRemaining'] = parseInt(response.headers.get('x-ratelimit-remaining'), 10);
+      return json;
+    });
 }
 
 const Client = { getMilestones, getIssuesByMilestone };

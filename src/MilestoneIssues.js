@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import Client from './Client';
 import {
   Button,
   Modal,
 } from 'react-bootstrap';
 import MarkdownIt from 'markdown-it';
 import DOMPurify from 'dompurify';
+
+import Client from './Client';
+import RemainingRequests from './RemainingRequests';
 
 DOMPurify.addHook('afterSanitizeAttributes', function(node) {
   if ('target' in node) {
@@ -79,11 +81,11 @@ class MilestoneIssues extends Component {
   render() {
     const { match } = this.props;
     const modalIssue = this.state.modalIssue;
+    const data = this.state.issues;
 
-    const Issues = this.state.issues.items.map((issue, idx) => {
+    const Issues = data.items.map((issue, idx) => {
       const stateLabelClass = issue.state === 'closed' ? 'success' : 'default';
       const repoName = issue.repository_url.split('/').slice(-1).join('/');
-
       return (
         <tr key={idx}>
           <td>
@@ -146,6 +148,9 @@ class MilestoneIssues extends Component {
           </Modal.Footer>
         </Modal> : null}
 
+        <footer>
+          <RemainingRequests {...data} />
+        </footer>
       </main>
     );
   }

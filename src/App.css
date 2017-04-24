@@ -17,3 +17,16 @@
 .modal-body img {
   max-width: 100%;
 }
+
+.gh-labels .label {
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0 5px 10px 0;
+  padding: 8px 10px 10px;
+}
+
+.gh-labels .label .glyphicon-tag {
+  font-size: 10px;
+}

@@ -1,28 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Col,
-  ControlLabel,
-  Form,
-  FormControl,
-  FormGroup,
-  MenuItem,
-  Nav,
-  NavDropdown,
-  NavItem,
-  Navbar,
-  Panel,
-} from 'react-bootstrap';
-import { Link } from 'react-router-dom'
-
 import Client from './Client';
-
-
-const REPOS = [
-  'addons',
-  'addons-frontend',
-  'addons-server',
-];
 
 class MilestoneIssues extends Component {
 
@@ -59,7 +36,7 @@ class MilestoneIssues extends Component {
     const { match } = this.props;
 
     const Issues = this.state.issues.items.map((issue, idx) => {
-      const stateLabelClass = issue.state == 'closed' ? 'success' : 'default';
+      const stateLabelClass = issue.state === 'closed' ? 'success' : 'default';
       return (
         <tr key={idx}>
           <td>{issue.assignee ? issue.assignee.login : 'unassigned' }</td>

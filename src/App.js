@@ -1,25 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
 import {
-  Button,
-  Col,
-  ControlLabel,
-  Form,
-  FormControl,
-  FormGroup,
-  MenuItem,
   Nav,
-  NavDropdown,
   NavItem,
   Navbar,
-  Panel,
 } from 'react-bootstrap';
 
 import {
   BrowserRouter as Router,
   Route,
-  Link
 } from 'react-router-dom'
 
 import Home from './Home'

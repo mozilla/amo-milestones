@@ -1,32 +1,12 @@
 import React, { Component } from 'react';
 import {
-  Button,
-  Col,
   ControlLabel,
   Form,
   FormControl,
   FormGroup,
-  MenuItem,
-  Nav,
-  NavDropdown,
-  NavItem,
-  Navbar,
-  Panel,
 } from 'react-bootstrap';
-import Client from './Client';
+import Client, { REPOS }  from './Client';
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
-
-
-const REPOS = [
-  'addons',
-  'addons-frontend',
-  'addons-server',
-];
 
 class Home extends Component {
 

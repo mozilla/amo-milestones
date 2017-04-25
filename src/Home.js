@@ -63,9 +63,10 @@ class Home extends Component {
             <FormControl componentClass="select" placeholder="select"
               value={this.state.repoMilestoneSource} onChange={this.handleMilestoneSourceChange}>
               { REPOS.map((repo, idx) => (
-                <option key={`repo-${idx}`} value="{repo}">{repo}</option>
+                <option key={`repo-${idx}`} value={repo}>{repo}</option>
               ))}
             </FormControl>
+            <p className="help">Note: You generally won't need to change this, this just allows pulling the list of milestones from any of the repos.</p>
           </FormGroup>
         </Form>
 

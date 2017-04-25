@@ -10,8 +10,12 @@ const VALID_MILESTONE_RX = /^\d{4}[.-]\d{2}[.-]\d{2}$/
 
 function getMilestones(repo) {
   if (REPOS.includes(repo)) {
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json');
     return fetch(`${GITHUB_API_ROOT}/repos/${GITHUB_ORG}/${encodeURIComponent(repo)}/milestones?sort=due_on&direction=desc`, {
-        accept: 'application/json',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        })
       })
       .then(checkStatus)
       .then(parseJSON);
@@ -21,17 +25,34 @@ function getMilestones(repo) {
 }
 
 function getIssuesByMilestone(milestone) {
-  const repoString = encodeURIComponent(REPOS.map((repo, idx) => {
-    return `repo:mozilla/${repo}`;
-  }).join(' '));
-
+  /* return Promise.resolve({
+    items: [{
+      assignee: {
+        login: 'some user',
+      },
+      body: '# a heading \n https://foo.com',
+      labels: [{
+        color: '107c05',
+        name: 'component: security'
+      }, {
+        color: 'fef1af',
+        name: 'qa: not needed'
+      }],
+      repository_url: 'https://api.github.com/repos/mozilla/addons-server',
+      title: 'An issue title',
+      state: 'open',
+    }]}); */
+  const repoString = encodeURIComponent(REPOS.map((repo, idx) => `repo:mozilla/${repo}`).join(' '));
   if (VALID_MILESTONE_RX.test(milestone)) {
     return fetch(`${GITHUB_API_ROOT}/search/issues?q=${repoString}%20is%3Aissue%20milestone%3A${milestone}`, {
-        accept: 'application/json',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        })
       })
       .then(checkStatus)
-      .then(parseJSON);
+      .then(parseJSON)
   } else {
+    console.log('awooga');
     alert('Invalid milestone');
   }
 }
@@ -53,7 +74,7 @@ function parseJSON(response) {
       json['ratelimitLimit'] = parseInt(response.headers.get('x-rateLimit-limit'), 10);
       json['ratelimitRemaining'] = parseInt(response.headers.get('x-ratelimit-remaining'), 10);
       return json;
-    });
+    })
 }
 
 const Client = { getMilestones, getIssuesByMilestone };

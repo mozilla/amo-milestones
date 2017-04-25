@@ -3,11 +3,9 @@ import {
   Button,
   Modal,
 } from 'react-bootstrap';
-import MarkdownIt from 'markdown-it';
 
 import Client from './Client';
 import RemainingRequests from './RemainingRequests';
-
 import { sanitize, markdown, colourIsLight } from './utils';
 
 
@@ -20,7 +18,7 @@ class MilestoneIssues extends Component {
     modalIssue: null,
   };
 
-  getIssuesByMilestone = (milestone) => {
+  getIssuesByMilestone(milestone) {
     return Client.getIssuesByMilestone(milestone)
       .then((data) => {
         data.items.sort((a, b) => {

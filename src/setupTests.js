@@ -1,2 +1,2 @@
 import 'jest-enzyme';
-global.fetch = require('jest-fetch-mock');
+global.fetch = require('fetch-mock');

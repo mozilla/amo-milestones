@@ -2,30 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Home from './Home';
 import { shallow } from 'enzyme';
+import fetchMock from 'fetch-mock';
 
 
 describe('Home page', () => {
   beforeEach(() => {
-      fetch.resetMocks();
+    fetchMock.restore();
+    fetchMock.mock('*', {
+      body: [
+        {title: '2017.04.27' },
+        {title: '2017.05.29' },
+      ],
+      status: 200,
+      headers: {
+        'X-RateLimit-Limit': 10,
+        'X-RateLimit-Remaining': 9
+      },
+    });
   });
 
   it('Renders basic list of 2 milestones', () => {
-    fetch.mockResponses(
-      [
-        JSON.stringify([
-          {title: '2017.04.27' },
-          {title: '2017.05.29' },
-        ]),
-        {
-          status: 200,
-          headers: {
-            'X-RateLimit-Limit': 10,
-            'X-RateLimit-Remaining': 9
-          },
-        }
-      ]
-    );
-
     const wrapper = shallow(<Home />);
     return wrapper.instance().getMilestones('addons')
       .then(() => {
@@ -34,22 +30,6 @@ describe('Home page', () => {
   });
 
   it('Renders rate limit', () => {
-    fetch.mockResponses(
-      [
-        JSON.stringify([
-          {title: '2017.04.27' },
-          {title: '2017.05.29' },
-        ]),
-        {
-          status: 200,
-          headers: {
-            'X-RateLimit-Limit': 10,
-            'X-RateLimit-Remaining': 9
-          },
-        }
-      ]
-    );
-
     const wrapper = shallow(<Home />);
     return wrapper.instance().getMilestones('addons')
       .then(() => {

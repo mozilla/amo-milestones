@@ -92,7 +92,7 @@ class MilestoneIssues extends Component {
               {issue.assignee ? <img className="avatar" src={issue.assignee.avatar_url} alt="" width="20" height="20" /> : null}
               {issue.assignee ? issue.assignee.login : 'unassigned' }
           </td>
-          <td>
+          <td className="issue-title">
             <a rel="noopener noreferrer" target="_blank" href={issue.html_url}>
               {issue.title} <span className="glyphicon glyphicon-link"></span>
             </a>

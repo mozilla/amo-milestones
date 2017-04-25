@@ -13,6 +13,8 @@
   },
   "devDependencies": {
     "enzyme": "2.8.2",
+    "jest": "19.0.2",
+    "jest-cli": "19.0.2",
     "jest-enzyme": "2.1.2",
     "jest-fetch-mock": "1.1.1",
     "react-scripts": "0.9.5",

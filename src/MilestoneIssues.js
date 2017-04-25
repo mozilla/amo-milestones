@@ -4,38 +4,11 @@ import {
   Modal,
 } from 'react-bootstrap';
 import MarkdownIt from 'markdown-it';
-import DOMPurify from 'dompurify';
 
 import Client from './Client';
 import RemainingRequests from './RemainingRequests';
 
-DOMPurify.addHook('afterSanitizeAttributes', function(node) {
-  if ('target' in node) {
-    node.setAttribute('target','_blank');
-    node.setAttribute('rel', 'noopener noreferrer');
-  }
-});
-
-const md = new MarkdownIt({
-  linkify: true,
-});
-
-function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : {};
-}
-
-function colourIsLight(hex) {
-  const { r, g, b } = { ...hexToRgb(hex) }
-  // Counting the perceptive luminance
-  // human eye favors green color...
-  var a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-  return (a < 0.5);
-}
+import { sanitize, markdown, colourIsLight } from './utils';
 
 
 class MilestoneIssues extends Component {
@@ -128,7 +101,7 @@ class MilestoneIssues extends Component {
             <Modal.Title>{modalIssue.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(md.render(modalIssue.body))}} />
+            <div dangerouslySetInnerHTML={{__html: sanitize(markdown.render(modalIssue.body))}} />
             <hr />
             { modalIssue.labels.length ? <div className="gh-labels">
               <h3>Labels:</h3>

@@ -53,7 +53,7 @@ describe('Home page', () => {
     const wrapper = shallow(<Home />);
     return wrapper.instance().getMilestones('addons')
       .then(() => {
-        expect(wrapper.html().includes('9/10')).toEqual(true);
+        expect(wrapper.html()).toEqual(expect.stringMatching('9/10'));
       });
   });
 });

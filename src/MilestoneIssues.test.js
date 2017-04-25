@@ -84,7 +84,7 @@ describe('Milestones Page', () => {
     const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
       .then(() => {
-        expect(wrapper.html().includes('9/10')).toEqual(true);
+        expect(wrapper.html()).toEqual(expect.stringMatching('9/10'));
       });
   });
 });

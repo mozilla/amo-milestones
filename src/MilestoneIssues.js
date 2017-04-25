@@ -47,7 +47,7 @@ class MilestoneIssues extends Component {
     modalIssue: null,
   };
 
-  getIssuesByMilestone(milestone) {
+  getIssuesByMilestone = (milestone) => {
     return Client.getIssuesByMilestone(milestone)
       .then((data) => {
         data.items.sort((a, b) => {
@@ -88,7 +88,7 @@ class MilestoneIssues extends Component {
       const repoName = issue.repository_url.split('/').slice(-1).join('/');
       return (
         <tr key={idx}>
-          <td>
+          <td className="gh-username">
               {issue.assignee ? <img className="avatar" src={issue.assignee.avatar_url} alt="" width="20" height="20" /> : null}
               {issue.assignee ? issue.assignee.login : 'unassigned' }
           </td>
@@ -97,9 +97,9 @@ class MilestoneIssues extends Component {
               {issue.title} <span className="glyphicon glyphicon-link"></span>
             </a>
           </td>
-          <td>{repoName}</td>
-          <td><a href="#" onClick={(e) => { e.preventDefault(); this.showModal(issue); }}>Show details</a></td>
-          <td><span className={`label label-${stateLabelClass}`}>{issue.state}</span></td>
+          <td className="gh-reponame">{repoName}</td>
+          <td className="show-details"><a href="#" onClick={(e) => { e.preventDefault(); this.showModal(issue); }}>Show details</a></td>
+          <td className="issue-state"><span className={`label label-${stateLabelClass}`}>{issue.state}</span></td>
         </tr>
       );
     });

@@ -12,7 +12,11 @@
     "react-router-dom": "4.1.1"
   },
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "enzyme": "2.8.2",
+    "jest-enzyme": "2.1.2",
+    "jest-fetch-mock": "1.1.1",
+    "react-scripts": "0.9.5",
+    "react-test-renderer": "15.5.4"
   },
   "scripts": {
     "start": "react-scripts start",

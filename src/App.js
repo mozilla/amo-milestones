@@ -25,7 +25,7 @@ const App = () => (
           </Navbar.Brand>
         </Navbar.Header>
         <Nav>
-          <NavItem eventKey={1} href="https://github.com/mozilla/amo-milestones/">Source Code</NavItem>
+          <NavItem data-ref="src" eventKey={1} target="_blank" rel="noopener noreferrer" href="https://github.com/mozilla/amo-milestones/">Source Code</NavItem>
         </Nav>
       </Navbar>
 

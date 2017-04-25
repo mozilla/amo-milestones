@@ -1,8 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
+import { shallow } from 'enzyme';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+
+describe('App', () => {
+  it('Renders App without crashing', () => {
+    const wrapper = shallow(<App />);
+    const indexLink = <a href="/">AMO Milestones</a>;
+    expect(wrapper).toContainReact(indexLink);
+  });
+
+  it('has a source code link', () => {
+    const wrapper = shallow(<App />);
+    const srcLink = wrapper.find('[data-ref="src"]');
+    expect(srcLink.prop('rel')).toBe('noopener noreferrer');
+  });
 });

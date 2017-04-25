@@ -31,10 +31,10 @@ class Home extends Component {
     }
   }
 
-  getMilestones(sourceRepo) {
+  getMilestones = (sourceRepo) => {
     return Client.getMilestones(sourceRepo)
       .then((data) => {
-        this.setState({milestones: data});
+        return this.setState({milestones: data});
       });
   }
 

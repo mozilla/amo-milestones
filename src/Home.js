@@ -57,9 +57,16 @@ class Home extends Component {
 
     return (
       <main className="container">
+        <FormGroup controlId="milestone">
+          <ControlLabel>Select Milestone</ControlLabel>
+          <div className="list-group">
+            {milestoneLinks}
+          </div>
+        </FormGroup>
+
         <Form>
           <FormGroup controlId="repoMilestoneSrc">
-            <ControlLabel>Select Repo to use as milestone source:</ControlLabel>
+            <ControlLabel>Change Repo used to generate list of milestones:</ControlLabel>
             <FormControl componentClass="select" placeholder="select"
               value={this.state.repoMilestoneSource} onChange={this.handleMilestoneSourceChange}>
               { REPOS.map((repo, idx) => (
@@ -69,13 +76,6 @@ class Home extends Component {
             <p className="help">Note: You generally won't need to change this, this just allows pulling the list of milestones from any of the repos.</p>
           </FormGroup>
         </Form>
-
-        <FormGroup controlId="milestone">
-          <ControlLabel>Select Milestone</ControlLabel>
-          <div className="list-group">
-            {milestoneLinks}
-          </div>
-        </FormGroup>
 
         <footer>
           <RemainingRequests {...data} />

@@ -32,7 +32,7 @@
 }
 
 .help {
-  color: #666;
+  color: #777;
   font-style: italic;
   font-size: 12px;
   margin: 5px 0;
@@ -40,4 +40,10 @@
 
 .issue-title {
   width: 50%;
+}
+
+[for=repoMilestoneSrc] {
+  color: #777;
+  font-weight: normal;
+  font-style: italic;
 }

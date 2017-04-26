@@ -33,7 +33,6 @@ const fakeMatch = {
 describe('Milestones Page', () => {
 
   beforeEach(() => {
-    fetchMock.restore();
     fetchMock.mock('*', {
       body: {
         items: [
@@ -42,6 +41,27 @@ describe('Milestones Page', () => {
             ...defaultMockData, ...{
               title: 'another title',
               state: 'closed',
+              assignee: {
+                login: 'another user',
+              },
+            }
+          },
+          {
+            ...defaultMockData, ...{
+              title: 'Something else',
+              state: 'open',
+              assignee: {
+                login: 'xavier',
+              },
+            }
+          },
+          {
+            ...defaultMockData, ...{
+              title: 'Something really important',
+              state: 'open',
+              assignee: {
+                login: 'xavier',
+              },
             }
           }
         ]
@@ -54,15 +74,20 @@ describe('Milestones Page', () => {
     });
   });
 
+  afterEach(() => {
+    fetchMock.restore();
+  });
+
   it('Renders basic list of issues', () => {
     const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
       .then(() => {
-        expect(wrapper.find('.gh-username')).toHaveLength(2);
-        expect(wrapper.find('.gh-reponame')).toHaveLength(2);
-        expect(wrapper.find('.issue-title')).toHaveLength(2);
-        expect(wrapper.find('.show-details')).toHaveLength(2);
-        expect(wrapper.find('.issue-state')).toHaveLength(2);
+        const expectedNumberOfIssues = 4;
+        expect(wrapper.find('.gh-username')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('.gh-reponame')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('.issue-title')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('.show-details')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('.issue-state')).toHaveLength(expectedNumberOfIssues);
       });
   });
 
@@ -87,6 +112,34 @@ describe('Milestones Page', () => {
         inst.showModal(defaultMockData);
         const modalBody = document.querySelector('.modal-body');
         expect(modalBody.innerHTML).toEqual(expect.stringMatching('<h1>a heading</h1>'));
+        inst.closeModal();
+        expect(document.querySelector('.modal-body')).toEqual(null);
+      });
+  });
+
+  it('Closes the overlay when clicking close button', () => {
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
+    const inst = wrapper.instance();
+    return inst.getIssuesByMilestone('2017.06.10')
+      .then(() => {
+        inst.showModal(defaultMockData);
+        const modalBody = document.querySelector('.modal-body');
+        expect(modalBody.innerHTML).toEqual(expect.stringMatching('<h1>a heading</h1>'));
+        document.querySelector('.modal-footer button').click();
+        expect(document.querySelector('.modal-body')).toEqual(null);
+      });
+  });
+
+  it('Closes the overlay when clicking close X', () => {
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
+    const inst = wrapper.instance();
+    return inst.getIssuesByMilestone('2017.06.10')
+      .then(() => {
+        inst.showModal(defaultMockData);
+        const modalBody = document.querySelector('.modal-body');
+        expect(modalBody.innerHTML).toEqual(expect.stringMatching('<h1>a heading</h1>'));
+        document.querySelector('.close').click();
+        expect(document.querySelector('.modal-body')).toEqual(null);
       });
   });
 

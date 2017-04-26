@@ -18,16 +18,16 @@ class Home extends Component {
     repoMilestoneSource: REPOS[0],
   };
 
-  handleMilestoneSourceChange = (event) => {
+  handleMilestoneSourceChange = (event, _alert=window.alert) => {
     const value = event.target.value;
-    this.setState({
-      selectedMilestone: null,
-      repoMilestoneSource: value,
-    });
     if (REPOS.includes(value)) {
+      this.setState({
+        selectedMilestone: null,
+        repoMilestoneSource: value,
+      });
       this.getMilestones(value);
     } else {
-      alert('Invalid milestone source repo');
+      _alert('Invalid milestone source repo');
     }
   }
 
@@ -40,9 +40,7 @@ class Home extends Component {
 
   componentDidMount() {
     if (this.state.repoMilestoneSource) {
-      this.getMilestones(this.state.repoMilestoneSource);
-    } else {
-      console.log('Milestone source falsey');
+      return this.getMilestones(this.state.repoMilestoneSource);
     }
   }
 

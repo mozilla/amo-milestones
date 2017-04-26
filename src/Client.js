@@ -8,7 +8,7 @@ export const REPOS = [
 ];
 const VALID_MILESTONE_RX = /^\d{4}[.-]\d{2}[.-]\d{2}$/
 
-function getMilestones(repo) {
+function getMilestones(repo, _alert=window.alert) {
   if (REPOS.includes(repo)) {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
@@ -20,28 +20,11 @@ function getMilestones(repo) {
       .then(checkStatus)
       .then(parseJSON);
   } else {
-    alert('Invalid milestone source repo');
+    _alert('Invalid milestone source repo');
   }
 }
 
-function getIssuesByMilestone(milestone) {
-  /* return Promise.resolve({
-    items: [{
-      assignee: {
-        login: 'some user',
-      },
-      body: '# a heading \n https://foo.com',
-      labels: [{
-        color: '107c05',
-        name: 'component: security'
-      }, {
-        color: 'fef1af',
-        name: 'qa: not needed'
-      }],
-      repository_url: 'https://api.github.com/repos/mozilla/addons-server',
-      title: 'An issue title',
-      state: 'open',
-    }]}); */
+function getIssuesByMilestone(milestone, _alert=window.alert) {
   const repoString = encodeURIComponent(REPOS.map((repo, idx) => `repo:mozilla/${repo}`).join(' '));
   if (VALID_MILESTONE_RX.test(milestone)) {
     return fetch(`${GITHUB_API_ROOT}/search/issues?q=${repoString}%20is%3Aissue%20milestone%3A${milestone}`, {
@@ -52,8 +35,7 @@ function getIssuesByMilestone(milestone) {
       .then(checkStatus)
       .then(parseJSON)
   } else {
-    console.log('awooga');
-    alert('Invalid milestone');
+    _alert('Invalid milestone');
   }
 }
 
@@ -77,5 +59,5 @@ function parseJSON(response) {
     })
 }
 
-const Client = { getMilestones, getIssuesByMilestone };
+const Client = { getMilestones, getIssuesByMilestone, checkStatus };
 export default Client;

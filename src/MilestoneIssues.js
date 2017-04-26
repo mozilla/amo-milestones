@@ -49,19 +49,67 @@ class MilestoneIssues extends Component {
     this.setState({modalIssue: null});
   }
 
+  hasLabel(issue, labelName) {
+    const labels = issue.labels || [];
+    return labels.find(label => label.name === labelName);
+  }
+
+  hasLabelContainingString(issue, string) {
+    const labels = issue.labels || [];
+    const rx = new RegExp(string);
+    return labels.find(label => rx.test(label.name));
+  }
+
+  colors = {
+    blocked: '#ffa500',
+    closed: '#98ff98',
+    contrib: '#C9B4F9',
+    inProgress: '#FAC60C',
+    invalid: '#EDEDED',
+    priority: '#E92332',
+    verified: '#00A21D',
+    open: '#666966',
+  }
+
   render() {
     const { match } = this.props;
     const modalIssue = this.state.modalIssue;
     const data = this.state.issues;
+    const colors = this.colors;
 
     const Issues = data.items.map((issue, idx) => {
-      const stateLabelClass = issue.state === 'closed' ? 'success' : 'default';
+      let stateLabel = issue.state
+      let stateLabelColor = issue.state === 'closed' ? colors.closed : colors.open;
+
+      if (issue.state === 'open' && this.hasLabel(issue, 'state: in progress')) {
+        stateLabel = 'in progress';
+        stateLabelColor = colors.inProgress;
+      } else if (issue.state === 'closed' && this.hasLabel(issue, 'state: verified fixed')) {
+        stateLabel = 'verified fixed';
+        stateLabelColor = colors.verified;
+      } else if (issue.state === 'closed' && this.hasLabel(issue, 'qa: not needed')) {
+        stateLabel = 'closed QA-';
+        stateLabelColor = colors.verified;
+      } else if (issue.state === 'closed' &&
+          (this.hasLabel(issue, 'state: invalid') ||
+          this.hasLabel(issue, 'state: works for me'))) {
+        stateLabel = 'closed invalid';
+        stateLabelColor = colors.invalid;
+      }
+
+      let assigneeName = issue.assignee ? issue.assignee.login : 'unassigned';
+      if (assigneeName === 'unassigned' && this.hasLabelContainingString(issue, 'mentor assigned')) {
+        assigneeName = '⚡️ contributor';
+      }
+
+      const stateLabelTextColor = colourIsLight(stateLabelColor) ? '#000' : '#fff';
+
       const repoName = issue.repository_url.split('/').slice(-1).join('/');
       return (
         <tr key={idx}>
           <td className="gh-username">
-              {issue.assignee ? <img className="avatar" src={issue.assignee.avatar_url} alt="" width="20" height="20" /> : null}
-              {issue.assignee ? issue.assignee.login : 'unassigned' }
+            {issue.assignee ? <img className="avatar" src={issue.assignee.avatar_url} alt="" width="20" height="20" /> : null}
+            {assigneeName}
           </td>
           <td className="issue-title">
             <a rel="noopener noreferrer" target="_blank" href={issue.html_url}>
@@ -70,7 +118,9 @@ class MilestoneIssues extends Component {
           </td>
           <td className="gh-reponame">{repoName}</td>
           <td className="show-details"><a href="#" onClick={(e) => { e.preventDefault(); this.showModal(issue); }}>Show details</a></td>
-          <td className="issue-state"><span className={`label label-${stateLabelClass}`}>{issue.state}</span></td>
+          <td className="issue-state">
+            <span className="label" style={{ backgroundColor: stateLabelColor, color: stateLabelTextColor}}>{stateLabel}</span>
+          </td>
         </tr>
       );
     });

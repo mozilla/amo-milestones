@@ -42,6 +42,15 @@
   width: 50%;
 }
 
+.issue-state .label {
+  box-sizing: content-box;
+  display: inline-block;
+  min-width: 7em;
+  padding: 5px;
+  text-align: center;
+  font-weight: normal;
+}
+
 [for=repoMilestoneSrc] {
   color: #777;
   font-weight: normal;

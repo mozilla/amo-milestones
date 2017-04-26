@@ -21,6 +21,7 @@ const defaultMockData = {
   repository_url: 'https://api.github.com/repos/mozilla/addons-server',
   title: 'An issue title',
   state: 'open',
+  updated_at: '2017-04-26T16:11:48Z',
  };
 
 const fakeMatch = {
@@ -44,6 +45,18 @@ describe('Milestones Page', () => {
               assignee: {
                 login: 'another user',
               },
+              updated_at: '2017-04-26T16:11:48Z',
+              closed_at: '2017-04-22T16:06:09Z',
+            }
+          },
+          {
+            ...defaultMockData, ...{
+              title: 'Second open',
+              state: 'open',
+              assignee: {
+                login: 'xavier',
+              },
+              updated_at: '2017-04-25T16:11:48Z',
             }
           },
           {
@@ -53,15 +66,39 @@ describe('Milestones Page', () => {
               assignee: {
                 login: 'xavier',
               },
+              updated_at: '2017-04-24T16:11:48Z',
+            }
+          },
+          {
+            ...defaultMockData, ...{
+              title: 'Something else Xavier worked on',
+              state: 'closed',
+              assignee: {
+                login: 'xavier',
+              },
+              updated_at: '2017-04-23T16:11:48Z',
+              closed_at: '2017-04-22T16:06:09Z',
+            }
+          },
+          {
+            ...defaultMockData, ...{
+              title: 'Another Xavier issue',
+              state: 'closed',
+              assignee: {
+                login: 'xavier',
+              },
+              updated_at: '2017-04-23T16:11:48Z',
+              closed_at: '2017-04-21T16:06:09Z',
             }
           },
           {
             ...defaultMockData, ...{
               title: 'Something really important',
               state: 'open',
-              assignee: {
-                login: 'xavier',
-              },
+              updated_at: '2017-04-23T16:11:48Z',
+              labels: [
+                name: 'contrib: mentor assigned',
+              ]
             }
           }
         ]
@@ -78,11 +115,11 @@ describe('Milestones Page', () => {
     fetchMock.restore();
   });
 
-  it('Renders basic list of issues', () => {
+  it('renders basic list of issues', () => {
     const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
       .then(() => {
-        const expectedNumberOfIssues = 4;
+        const expectedNumberOfIssues = 7;
         expect(wrapper.find('.gh-username')).toHaveLength(expectedNumberOfIssues);
         expect(wrapper.find('.gh-reponame')).toHaveLength(expectedNumberOfIssues);
         expect(wrapper.find('.issue-title')).toHaveLength(expectedNumberOfIssues);
@@ -91,7 +128,35 @@ describe('Milestones Page', () => {
       });
   });
 
-  it('Displays an overlay when clicking a link', () => {
+  it('Sorts in the right order', () => {
+    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const inst = wrapper.instance();
+    return inst.getIssuesByMilestone('2017.06.10')
+      .then((data) => {
+        // Another user's issues will be above xavier's
+        expect(
+          data.items.findIndex(x => x.assignee.login === 'xavier') >
+          data.items.findIndex(x => x.assignee.login === 'another user')
+        ).toEqual(true);
+        // Closed issues come before open ones.
+        expect(
+          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'open') >
+          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'closed')
+        ).toEqual(true);
+        // Open issues are sorted last_updated last.
+        expect(
+          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'open' && x.updated_at === '2017-04-25T16:11:48Z') >
+          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'open' && x.updated_at === '2017-04-24T16:11:48Z')
+        ).toEqual(true);
+        // Closed issues last closed last.
+        expect(
+          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-22T16:06:09Z') >
+          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-21T16:06:09Z')
+        ).toEqual(true);
+      });
+  });
+
+  it('displays an overlay when clicking a link', () => {
     const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
@@ -104,7 +169,7 @@ describe('Milestones Page', () => {
       });
   });
 
-  it('Displays an overlay via setState', () => {
+  it('displays an overlay via setState', () => {
     const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
@@ -117,7 +182,7 @@ describe('Milestones Page', () => {
       });
   });
 
-  it('Closes the overlay when clicking close button', () => {
+  it('closes the overlay when clicking close button', () => {
     const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
@@ -130,7 +195,7 @@ describe('Milestones Page', () => {
       });
   });
 
-  it('Closes the overlay when clicking close X', () => {
+  it('closes the overlay when clicking close X', () => {
     const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
@@ -143,7 +208,7 @@ describe('Milestones Page', () => {
       });
   });
 
-  it('Renders rate limit', () => {
+  it('renders rate limit', () => {
     const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
       .then(() => {

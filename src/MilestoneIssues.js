@@ -22,17 +22,16 @@ class MilestoneIssues extends Component {
     return Client.getIssuesByMilestone(milestone)
       .then((data) => {
         data.items.sort((a, b) => {
-          var userA = a.assignee ? a.assignee.login.toUpperCase() : 'unassigned';
-          var userB = b.assignee ? b.assignee.login.toUpperCase() : 'unassigned';
-          if (userA < userB) {
-            return -1;
-          }
-          if (userA > userB) {
-            return 1;
-          }
-          return 0;
+          const userA = a.assignee ? a.assignee.login.toUpperCase() : 'unassigned';
+          const userB = b.assignee ? b.assignee.login.toUpperCase() : 'unassigned';
+          const dateA = a.closed_at ? a.closed_at : a.updated_at;
+          const dateB = b.closed_at ? b.closed_at : b.updated_at;
+          return userA < userB ? -1 : userA > userB ? 1 : // Assignee name
+                 a.state < b.state ? -1 : a.state > b.state ? 1 : // closed first
+                 dateA < dateB ? -1 : dateA > dateB ? 1 : 0; // oldest first
         });
         this.setState({issues: data});
+        return data;
       });
   }
 

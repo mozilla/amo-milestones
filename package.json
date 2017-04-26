@@ -12,6 +12,7 @@
     "react-router-dom": "4.1.1"
   },
   "devDependencies": {
+    "coveralls": "2.13.0",
     "enzyme": "2.8.2",
     "fetch-mock": "5.10.0",
     "jest": "19.0.2",
@@ -26,6 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test-coverage": "npm run test -- --coverage",
+    "test-coveralls": "npm run test-coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "eject": "react-scripts eject"
   }
 }

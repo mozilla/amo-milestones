@@ -12,7 +12,7 @@ function getMilestones(repo, _alert=window.alert) {
   if (REPOS.includes(repo)) {
     const headers = new Headers();
     headers.set('Content-Type', 'application/json');
-    return fetch(`${GITHUB_API_ROOT}/repos/${GITHUB_ORG}/${encodeURIComponent(repo)}/milestones?sort=due_on&direction=desc`, {
+    return fetch(`${GITHUB_API_ROOT}/repos/${GITHUB_ORG}/${encodeURIComponent(repo)}/milestones?sort=due_date&direction=asc`, {
         headers: new Headers({
           'Content-Type': 'application/json',
         })

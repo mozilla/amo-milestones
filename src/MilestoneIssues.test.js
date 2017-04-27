@@ -47,6 +47,10 @@ describe('Milestones Page', () => {
               },
               updated_at: '2017-04-26T16:11:48Z',
               closed_at: '2017-04-22T16:06:09Z',
+              labels: [{
+                color: '107c05',
+                name: 'state: invalid'
+              }],
             }
           },
           {
@@ -67,6 +71,13 @@ describe('Milestones Page', () => {
                 login: 'xavier',
               },
               updated_at: '2017-04-24T16:11:48Z',
+              labels: [{
+                color: '107c05',
+                name: 'state: in progress'
+              }, {
+                color: 'fef1af',
+                name: 'qa: not needed'
+              }],
             }
           },
           {
@@ -78,6 +89,10 @@ describe('Milestones Page', () => {
               },
               updated_at: '2017-04-23T16:11:48Z',
               closed_at: '2017-04-22T16:06:09Z',
+              labels: [{
+                color: '107c05',
+                name: 'state: verified fixed'
+              }],
             }
           },
           {
@@ -97,8 +112,9 @@ describe('Milestones Page', () => {
               state: 'open',
               updated_at: '2017-04-23T16:11:48Z',
               labels: [
-                name: 'contrib: mentor assigned',
-              ]
+                { name: 'contrib: mentor assigned' }
+              ],
+              assignee: null,
             }
           }
         ]
@@ -215,4 +231,51 @@ describe('Milestones Page', () => {
         expect(wrapper.html()).toEqual(expect.stringMatching('9/10'));
       });
   });
+
+  describe('hasLabel()', () => {
+    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const inst = wrapper.instance();
+
+    const fakeIssue = {
+      labels: [
+        { name: 'foo' },
+        { name: 'fooBar' },
+        { name: 'something' },
+      ]
+    }
+
+    it('returns true for exact match', () => {
+      expect(inst.hasLabel(fakeIssue, 'foo')).toEqual(true)
+    });
+
+    it('returns false for partial match', () => {
+      expect(inst.hasLabel(fakeIssue, 'thing')).toEqual(false)
+    });
+  });
+
+  describe('hasLabelContainingString()', () => {
+    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const inst = wrapper.instance();
+
+    const fakeIssue = {
+      labels: [
+        { name: 'foo' },
+        { name: 'fooBar' },
+        { name: 'bar' },
+        { name: 'baz' },
+        { name: 'something' },
+      ]
+    }
+
+    it('returns true for exact match', () => {
+      expect(inst.hasLabelContainingString(fakeIssue, 'foo')).toEqual(true)
+    });
+
+    it('returns true for partial match', () => {
+      expect(inst.hasLabelContainingString(fakeIssue, 'thing')).toEqual(true)
+    });
+  });
+
 });
+
+

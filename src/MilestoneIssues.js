@@ -50,13 +50,13 @@ class MilestoneIssues extends Component {
 
   hasLabel(issue, labelName) {
     const labels = issue.labels || [];
-    return labels.find(label => label.name === labelName);
+    return !!labels.find(label => label.name === labelName);
   }
 
   hasLabelContainingString(issue, string) {
     const labels = issue.labels || [];
     const rx = new RegExp(string);
-    return labels.find(label => rx.test(label.name));
+    return !!labels.find(label => rx.test(label.name));
   }
 
   colors = {

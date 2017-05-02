@@ -3,6 +3,7 @@ import {
   Button,
   Modal,
 } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 
 import Client from './Client';
 import RemainingRequests from './RemainingRequests';
@@ -72,9 +73,10 @@ class MilestoneIssues extends Component {
 
   render() {
     const { match } = this.props;
-    const modalIssue = this.state.modalIssue;
-    const data = this.state.issues;
     const colors = this.colors;
+    const data = this.state.issues;
+    const modalIssue = this.state.modalIssue;
+    const milestone = match.params.milestone;
 
     const Issues = data.items.map((issue, idx) => {
       let stateLabel = issue.state
@@ -124,9 +126,13 @@ class MilestoneIssues extends Component {
       );
     });
 
+
     return (
       <main className="container">
-        <h2>Issues for milestone: {match.params.milestone}</h2>
+        <Helmet>
+          <title>{`${milestone} | AMO Milestones`}</title>
+        </Helmet>
+        <h2>Issues for milestone: {milestone}</h2>
 
         <table className="table">
           <thead>

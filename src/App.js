@@ -10,14 +10,21 @@ import {
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
 } from 'react-router-dom'
+import { Helmet } from 'react-helmet';
 
 import Home from './Home'
 import MilestoneIssues from './MilestoneIssues'
+import NotFound from './NotFound';
+import { VALID_MILESTONE_RX } from './Client';
 
 const App = () => (
   <Router>
     <div>
+      <Helmet>
+        <title>AMO Milestones</title>
+      </Helmet>
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
@@ -29,8 +36,11 @@ const App = () => (
         </Nav>
       </Navbar>
 
-      <Route exact path="/" component={Home}/>
-      <Route path="/milestone/:milestone/issues/" component={MilestoneIssues}/>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/milestone/:milestone(\d{4}[-.]\d{2}[.-]\d{2})/issues/" component={MilestoneIssues}/>
+        <Route component={NotFound}/>
+      </Switch>
     </div>
   </Router>
 )

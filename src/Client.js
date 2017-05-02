@@ -6,7 +6,7 @@ export const REPOS = [
   'addons-linter',
   'addons-server',
 ];
-const VALID_MILESTONE_RX = /^\d{4}[.-]\d{2}[.-]\d{2}$/
+export const VALID_MILESTONE_RX = /^\d{4}[.-]\d{2}[.-]\d{2}$/
 
 function getMilestones(repo, _alert=window.alert) {
   if (REPOS.includes(repo)) {

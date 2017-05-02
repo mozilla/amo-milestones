@@ -17,7 +17,6 @@ import { Helmet } from 'react-helmet';
 import Home from './Home'
 import MilestoneIssues from './MilestoneIssues'
 import NotFound from './NotFound';
-import { VALID_MILESTONE_RX } from './Client';
 
 const App = () => (
   <Router>

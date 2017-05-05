@@ -64,10 +64,11 @@ class MilestoneIssues extends Component {
     blocked: '#ffa500',
     closed: '#98ff98',
     contrib: '#C9B4F9',
-    inProgress: '#FAC60C',
+    inProgress: '#fff176',
     invalid: '#EDEDED',
     priority: '#E92332',
     verified: '#00A21D',
+    prReady: '#ffc107',
     open: '#666966',
   }
 
@@ -82,7 +83,10 @@ class MilestoneIssues extends Component {
       let stateLabel = issue.state
       let stateLabelColor = issue.state === 'closed' ? colors.closed : colors.open;
 
-      if (issue.state === 'open' && this.hasLabel(issue, 'state: in progress')) {
+      if (issue.state === 'open' && this.hasLabel(issue, 'state: pull request ready')) {
+        stateLabel = 'PR ready';
+        stateLabelColor = colors.prReady;
+      } else if (issue.state === 'open' && this.hasLabel(issue, 'state: in progress')) {
         stateLabel = 'in progress';
         stateLabelColor = colors.inProgress;
       } else if (issue.state === 'closed' && this.hasLabel(issue, 'state: verified fixed')) {

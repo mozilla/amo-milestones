@@ -3,6 +3,8 @@
 
 # amo-milestones
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mozilla/amo-milestones.svg)](https://greenkeeper.io/)
+
 A simple app to support looking up issues by milestone for the focus of AMO
 team stand-ups.
 

@@ -18,7 +18,7 @@
     "fetch-mock": "5.10.0",
     "jest-enzyme": "2.x",
     "react-scripts": "0.9.5",
-    "react-test-renderer": "15.5.4",
+    "react-test-renderer": "15.6.1",
     "sinon": "2.3.5"
   },
   "scripts": {

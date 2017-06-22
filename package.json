@@ -6,20 +6,20 @@
     "bootstrap": "3",
     "dompurify": "0.9.0",
     "markdown-it": "8.3.1",
-    "react": "15.5.4",
+    "react": "15.6.1",
     "react-bootstrap": "0.31.0",
-    "react-dom": "15.5.4",
+    "react-dom": "15.6.1",
     "react-helmet": "^5.0.3",
     "react-router-dom": "4.1.1"
   },
   "devDependencies": {
     "coveralls": "2.13.1",
-    "enzyme": "2.8.2",
+    "enzyme": "2.9.0",
     "fetch-mock": "5.10.0",
     "jest-enzyme": "2.x",
     "react-scripts": "1.0.6",
-    "react-test-renderer": "15.5.4",
-    "sinon": "2.2.0"
+    "react-test-renderer": "15.6.1",
+    "sinon": "2.3.5"
   },
   "scripts": {
     "start": "react-scripts start",

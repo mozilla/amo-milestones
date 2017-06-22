@@ -110,6 +110,7 @@ class MilestoneIssues extends Component {
       const stateLabelTextColor = colourIsLight(stateLabelColor) ? '#000' : '#fff';
 
       const repoName = issue.repository_url.split('/').slice(-1).join('/');
+       /* eslint-disable jsx-a11y/href-no-hash */
       return (
         <tr key={idx}>
           <td className="gh-username">
@@ -128,6 +129,7 @@ class MilestoneIssues extends Component {
           </td>
         </tr>
       );
+      /* eslint-enable jsx-a11y/href-no-hash */
     });
 
 

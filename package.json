@@ -13,13 +13,14 @@
     "react-router-dom": "4.1.1"
   },
   "devDependencies": {
-    "coveralls": "2.13.1",
-    "enzyme": "2.9.0",
-    "fetch-mock": "5.10.0",
+    "coveralls": "^2.13.1",
+    "enzyme": "^2.9.0",
+    "fetch-mock": "^5.10.0",
+    "jest": "^20.0.4",
     "jest-enzyme": "^3.2.0",
-    "react-scripts": "0.9.5",
-    "react-test-renderer": "15.6.1",
-    "sinon": "2.3.5"
+    "react-scripts": "^1.0.7",
+    "react-test-renderer": "^15.6.1",
+    "sinon": "^2.3.5"
   },
   "scripts": {
     "start": "react-scripts start",

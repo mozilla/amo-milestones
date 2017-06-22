@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "coveralls": "2.13.1",
-    "enzyme": "2.8.2",
+    "enzyme": "2.9.0",
     "fetch-mock": "5.10.0",
     "jest-enzyme": "2.x",
     "react-scripts": "0.9.5",

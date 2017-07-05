@@ -27,7 +27,7 @@ function getMilestones(repo, _alert=window.alert) {
 function getIssuesByMilestone(milestone, _alert=window.alert) {
   const repoString = encodeURIComponent(REPOS.map((repo, idx) => `repo:mozilla/${repo}`).join(' '));
   if (VALID_MILESTONE_RX.test(milestone)) {
-    return fetch(`${GITHUB_API_ROOT}/search/issues?q=${repoString}%20is%3Aissue%20milestone%3A${milestone}`, {
+    return fetch(`${GITHUB_API_ROOT}/search/issues?q=${repoString}%20is%3Aissue%20milestone%3A${milestone}&per_page=100`, {
         headers: new Headers({
           'Content-Type': 'application/json',
         })

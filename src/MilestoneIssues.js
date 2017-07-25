@@ -103,7 +103,7 @@ class MilestoneIssues extends Component {
       }
 
       let assigneeName = issue.assignee ? issue.assignee.login : 'unassigned';
-      if (assigneeName === 'unassigned' && this.hasLabelContainingString(issue, 'mentor assigned')) {
+      if (assigneeName === 'unassigned' && this.hasLabel(issue, 'contrib: assigned')) {
         assigneeName = '⚡️ contributor';
       }
 

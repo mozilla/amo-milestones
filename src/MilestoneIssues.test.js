@@ -113,7 +113,7 @@ describe('Milestones Page', () => {
               updated_at: '2017-04-23T16:11:48Z',
               labels: [
                 { name: 'state: pull request ready' },
-                { name: 'contrib: mentor assigned' }
+                { name: 'contrib: assigned' }
               ],
               assignee: null,
             }

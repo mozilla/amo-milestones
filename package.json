@@ -20,7 +20,7 @@
     "jest-enzyme": "^3.3.0",
     "react-scripts": "^1.0.7",
     "react-test-renderer": "^15.6.1",
-    "sinon": "^2.3.5"
+    "sinon": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

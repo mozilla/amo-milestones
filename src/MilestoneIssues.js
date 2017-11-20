@@ -76,6 +76,7 @@ class MilestoneIssues extends Component {
     const { match } = this.props;
     const colors = this.colors;
     const data = this.state.issues;
+
     const modalIssue = this.state.modalIssue;
     const milestone = match.params.milestone;
 

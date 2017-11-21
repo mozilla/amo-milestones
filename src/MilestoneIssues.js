@@ -32,7 +32,6 @@ class MilestoneIssues extends Component {
                  dateA < dateB ? -1 : dateA > dateB ? 1 : 0; // oldest first
         });
 
-        console.log(data.items);
         this.setState({issues: data});
         return data;
       });
@@ -78,7 +77,6 @@ class MilestoneIssues extends Component {
     const { match } = this.props;
     const colors = this.colors;
     const data = this.state.issues;
-
     const modalIssue = this.state.modalIssue;
     const milestone = match.params.milestone;
 
@@ -110,10 +108,21 @@ class MilestoneIssues extends Component {
         assigneeName = '⚡️ contributor';
       }
 
+      let size;
+      if (this.hasLabelContainingString(issue, 'size')) {
+        if (this.hasLabel(issue, 'size: S')) {
+          size = 'S';
+        } else if (this.hasLabel(issue, 'size: M')) {
+          size = 'M';
+        } else if (this.hasLabel(issue, 'size: L')) {
+          size = 'L';
+        }
+      }
+
       const stateLabelTextColor = colourIsLight(stateLabelColor) ? '#000' : '#fff';
 
       const repoName = issue.repository_url.split('/').slice(-1).join('/');
-       /* eslint-disable jsx-a11y/href-no-hash */
+      /* eslint-disable jsx-a11y/href-no-hash */
       return (
         <tr key={idx}>
           <td className="gh-username">
@@ -127,6 +136,7 @@ class MilestoneIssues extends Component {
           </td>
           <td className="gh-reponame">{repoName}</td>
           <td className="show-details"><a href="#" onClick={(e) => { e.preventDefault(); this.showModal(issue); }}>Show details</a></td>
+          <td className="size">{ size ? <span className={`t-shirt-${size.toLowerCase()}`}>{size}</span> : null }</td>
           <td className="issue-state">
             <span className="label" style={{ backgroundColor: stateLabelColor, color: stateLabelTextColor}}>{stateLabel}</span>
           </td>
@@ -150,6 +160,7 @@ class MilestoneIssues extends Component {
             <th>Issue</th>
             <th>Repo</th>
             <th>Details</th>
+            <th>Size</th>
             <th>State</th>
           </tr>
           </thead>

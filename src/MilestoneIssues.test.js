@@ -151,25 +151,30 @@ describe('Milestones Page', () => {
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
       .then((data) => {
+        // unassigned issues should be above others.
+        expect(
+          data.items.findIndex(x => x.assignee === null) <
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier')
+        ).toEqual(true);
         // Another user's issues will be above xavier's
         expect(
-          data.items.findIndex(x => x.assignee.login === 'xavier') >
-          data.items.findIndex(x => x.assignee.login === 'another user')
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier') >
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'another user')
         ).toEqual(true);
         // Closed issues come before open ones.
         expect(
-          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'open') >
-          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'closed')
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'open') >
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'closed')
         ).toEqual(true);
         // Open issues are sorted last_updated last.
         expect(
-          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'open' && x.updated_at === '2017-04-25T16:11:48Z') >
-          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'open' && x.updated_at === '2017-04-24T16:11:48Z')
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'open' && x.updated_at === '2017-04-25T16:11:48Z') >
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'open' && x.updated_at === '2017-04-24T16:11:48Z')
         ).toEqual(true);
         // Closed issues last closed last.
         expect(
-          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-22T16:06:09Z') >
-          data.items.findIndex(x => x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-21T16:06:09Z')
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-22T16:06:09Z') >
+          data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-21T16:06:09Z')
         ).toEqual(true);
       });
   });

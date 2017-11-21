@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';
 import Home from './Home';
@@ -22,18 +22,20 @@ describe('Home page', () => {
     });
   });
 
-  it('Renders basic list of 2 milestones', () => {
-    const wrapper = shallow(<Home />);
+  it('renders basic list of 2 milestones', () => {
+    const wrapper = mount(<Home />);
     return wrapper.instance().getMilestones('addons')
       .then(() => {
+        wrapper.update();
         expect(wrapper.find('.list-group-item')).toHaveLength(2);
       });
   });
 
-  it('Renders basic list of 2 milestones on mount', () => {
-    const wrapper = shallow(<Home />);
+  it('renders basic list of 2 milestones on mount', () => {
+    const wrapper = mount(<Home />);
     return wrapper.instance().componentDidMount()
       .then(() => {
+        wrapper.update();
         expect(wrapper.find('.list-group-item')).toHaveLength(2);
       });
   });
@@ -71,8 +73,8 @@ describe('Home page', () => {
     expect(fakeAlert.calledWith('Invalid milestone source repo')).toEqual(true);
   });
 
-  it('Renders rate limit', () => {
-    const wrapper = shallow(<Home />);
+  it('renders rate limit', () => {
+    const wrapper = mount(<Home />);
     return wrapper.instance().getMilestones('addons')
       .then(() => {
         expect(wrapper.html()).toEqual(expect.stringMatching('9/10'));

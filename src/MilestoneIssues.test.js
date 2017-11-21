@@ -133,9 +133,10 @@ describe('Milestones Page', () => {
   });
 
   it('renders basic list of issues', () => {
-    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
       .then(() => {
+        wrapper.update();
         const expectedNumberOfIssues = 7;
         expect(wrapper.find('.gh-username')).toHaveLength(expectedNumberOfIssues);
         expect(wrapper.find('.gh-reponame')).toHaveLength(expectedNumberOfIssues);
@@ -174,10 +175,11 @@ describe('Milestones Page', () => {
   });
 
   it('displays an overlay when clicking a link', () => {
-    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
       .then(() => {
+        wrapper.update();
         const preventDefault = sinon.stub();
         inst.showModal = sinon.stub();
         wrapper.find('.show-details a').first().simulate('click', { preventDefault });
@@ -226,7 +228,7 @@ describe('Milestones Page', () => {
   });
 
   it('renders rate limit', () => {
-    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
       .then(() => {
         expect(wrapper.html()).toEqual(expect.stringMatching('9/10'));
@@ -234,7 +236,7 @@ describe('Milestones Page', () => {
   });
 
   describe('hasLabel()', () => {
-    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />, { disableLifecycleMethods: true });
     const inst = wrapper.instance();
 
     const fakeIssue = {
@@ -255,7 +257,7 @@ describe('Milestones Page', () => {
   });
 
   describe('hasLabelContainingString()', () => {
-    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
+    const wrapper = shallow(<MilestoneIssues match={fakeMatch} />, { disableLifecycleMethods: true });
     const inst = wrapper.instance();
 
     const fakeIssue = {

@@ -50,6 +50,9 @@ describe('Milestones Page', () => {
               labels: [{
                 color: '107c05',
                 name: 'state: invalid'
+              }, {
+                color: '5319e7',
+                name: 'size: S'
               }],
             }
           },
@@ -73,10 +76,13 @@ describe('Milestones Page', () => {
               updated_at: '2017-04-24T16:11:48Z',
               labels: [{
                 color: '107c05',
-                name: 'state: in progress'
+                name: 'state: in progress',
               }, {
                 color: 'fef1af',
                 name: 'qa: not needed'
+              }, {
+                color: '5319e7',
+                name: 'size: L'
               }],
             }
           },
@@ -92,6 +98,9 @@ describe('Milestones Page', () => {
               labels: [{
                 color: '107c05',
                 name: 'state: verified fixed'
+              }, {
+                color: '5319e7',
+                name: 'size: M'
               }],
             }
           },
@@ -284,6 +293,25 @@ describe('Milestones Page', () => {
     });
   });
 
+  describe('t-shirt sizes', () => {
+
+    it('should render a t-shirt size', () => {
+      const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
+      return wrapper.instance().getIssuesByMilestone('2017.06.10')
+        .then(() => {
+          wrapper.update();
+          const tShirtL = wrapper.find('.t-shirt-l');
+          expect(tShirtL).toHaveLength(1);
+          expect(tShirtL.text()).toEqual('L');
+          const tShirtS = wrapper.find('.t-shirt-s');
+          expect(tShirtS).toHaveLength(1);
+          expect(tShirtS.text()).toEqual('S');
+          const tShirtM = wrapper.find('.t-shirt-m');
+          expect(tShirtM).toHaveLength(1);
+          expect(tShirtM.text()).toEqual('M');
+        });
+    });
+  });
 });
 
 

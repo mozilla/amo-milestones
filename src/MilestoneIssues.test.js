@@ -142,20 +142,20 @@ describe('Milestones Page', () => {
   });
 
   it('renders basic list of issues', () => {
-    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />, { disableLifecycleMethods: true });
     return wrapper.instance().getIssuesByMilestone('2017.06.10')
-      .then(() => {
+      .then((data) => {
         wrapper.update();
-        const expectedNumberOfIssues = 7;
-        expect(wrapper.find('.gh-username')).toHaveLength(expectedNumberOfIssues);
-        expect(wrapper.find('.gh-reponame')).toHaveLength(expectedNumberOfIssues);
-        expect(wrapper.find('.issue-title')).toHaveLength(expectedNumberOfIssues);
-        expect(wrapper.find('.show-details')).toHaveLength(expectedNumberOfIssues);
-        expect(wrapper.find('.issue-state')).toHaveLength(expectedNumberOfIssues);
+        const expectedNumberOfIssues = data.items.length;
+        expect(wrapper.find('td.gh-username')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('td.gh-reponame')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('td.issue-title')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('td.show-details')).toHaveLength(expectedNumberOfIssues);
+        expect(wrapper.find('td.issue-state')).toHaveLength(expectedNumberOfIssues);
       });
   });
 
-  it('Sorts in the right order', () => {
+  it('Sorts in the right order by default', () => {
     const wrapper = shallow(<MilestoneIssues match={fakeMatch} />);
     const inst = wrapper.instance();
     return inst.getIssuesByMilestone('2017.06.10')
@@ -185,6 +185,20 @@ describe('Milestones Page', () => {
           data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-22T16:06:09Z') >
           data.items.findIndex(x => x.assignee && x.assignee.login === 'xavier' && x.state === 'closed' && x.closed_at === '2017-04-21T16:06:09Z')
         ).toEqual(true);
+      });
+  });
+
+  it('sorts when clicking the th', () => {
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
+    const inst = wrapper.instance();
+    return inst.getIssuesByMilestone('2017.06.10')
+      .then(() => {
+        wrapper.update();
+        wrapper.find('th.reactable-th-state').simulate('click');
+        wrapper.update();
+        const stateItems = wrapper.find('.issue-state span');
+        expect(stateItems.at(0).text()).toEqual('closed invalid');
+        expect(stateItems.at(1).text()).toEqual('closed QA-');
       });
   });
 
@@ -294,7 +308,6 @@ describe('Milestones Page', () => {
   });
 
   describe('t-shirt sizes', () => {
-
     it('should render a t-shirt size', () => {
       const wrapper = mount(<MilestoneIssues match={fakeMatch} />);
       return wrapper.instance().getIssuesByMilestone('2017.06.10')

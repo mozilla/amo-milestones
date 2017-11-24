@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import MilestoneIssues from './MilestoneIssues';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
-import { Modal } from 'react-bootstrap';
 import fetchMock from 'fetch-mock';
 
 const defaultMockData = {
@@ -48,11 +46,11 @@ describe('Milestones Page', () => {
               updated_at: '2017-04-26T16:11:48Z',
               closed_at: '2017-04-22T16:06:09Z',
               labels: [{
-                color: '107c05',
-                name: 'state: invalid'
-              }, {
                 color: '5319e7',
                 name: 'size: S'
+              }, {
+                color: 'fef1af',
+                name: 'qa: not needed'
               }],
             }
           },
@@ -113,6 +111,9 @@ describe('Milestones Page', () => {
               },
               updated_at: '2017-04-23T16:11:48Z',
               closed_at: '2017-04-21T16:06:09Z',
+              labels: [
+                { name: 'state: invalid' },
+              ],
             }
           },
           {
@@ -152,6 +153,17 @@ describe('Milestones Page', () => {
         expect(wrapper.find('td.issue-title')).toHaveLength(expectedNumberOfIssues);
         expect(wrapper.find('td.show-details')).toHaveLength(expectedNumberOfIssues);
         expect(wrapper.find('td.issue-state')).toHaveLength(expectedNumberOfIssues);
+      });
+  });
+
+  it('should not render invalid items', () => {
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />, { disableLifecycleMethods: true });
+    return wrapper.instance().getIssuesByMilestone('2017.06.10')
+      .then((data) => {
+        wrapper.update();
+        data.items.forEach((issue) => {
+          expect(issue.labels.some(item => item.name === 'state: invalid')).toBe(false);
+        });
       });
   });
 
@@ -197,8 +209,8 @@ describe('Milestones Page', () => {
         wrapper.find('th.reactable-th-state').simulate('click');
         wrapper.update();
         const stateItems = wrapper.find('.issue-state span');
-        expect(stateItems.at(0).text()).toEqual('closed invalid');
-        expect(stateItems.at(1).text()).toEqual('closed QA-');
+        expect(stateItems.at(0).text()).toEqual('closed QA-');
+        expect(stateItems.at(1).text()).toEqual('in progress');
       });
   });
 
@@ -276,11 +288,19 @@ describe('Milestones Page', () => {
     }
 
     it('returns true for exact match', () => {
-      expect(inst.hasLabel(fakeIssue, 'foo')).toEqual(true)
+      expect(inst.hasLabel(fakeIssue, 'foo')).toEqual(true);
     });
 
     it('returns false for partial match', () => {
-      expect(inst.hasLabel(fakeIssue, 'thing')).toEqual(false)
+      expect(inst.hasLabel(fakeIssue, 'thing')).toEqual(false);
+    });
+
+    it('returns true for one of list input', () => {
+      expect(inst.hasLabel(fakeIssue, ['foo', 'bar'])).toEqual(true);
+    });
+
+    it('returns false for partial match of list input', () => {
+      expect(inst.hasLabel(fakeIssue, ['thing', 'bar'])).toEqual(false);
     });
   });
 

@@ -10,6 +10,14 @@ import RemainingRequests from './RemainingRequests';
 import { sanitize, markdown, colourIsLight } from './utils';
 import Reactable, { Table, Td, Th, Thead, Tr } from 'reactable';
 
+const invalidStates = [
+  'state: invalid',
+  'state: duplicate',
+  'state: works for me',
+  'state: wontfix',
+]
+
+
 class MilestoneIssues extends Component {
 
   state = {
@@ -32,7 +40,9 @@ class MilestoneIssues extends Component {
   getIssuesByMilestone(milestone) {
     return Client.getIssuesByMilestone(milestone)
       .then((data) => {
-        data.items.sort(this.issueSort);
+        const issues = data.items.filter(issue => !this.hasLabel(issue, invalidStates))
+        issues.sort(this.issueSort);
+        data.items = issues;
         this.setState({issues: data});
         return data;
       });
@@ -51,9 +61,12 @@ class MilestoneIssues extends Component {
     this.setState({modalIssue: null});
   }
 
-  hasLabel(issue, labelName) {
+  hasLabel(issue, labelOrLabelList) {
     const labels = issue.labels || [];
-    return !!labels.find(label => label.name === labelName);
+    if (Array.isArray(labelOrLabelList)) {
+      return labels.some(item => labelOrLabelList.includes(item.name));
+    }
+    return !!labels.find(label => label.name === labelOrLabelList);
   }
 
   hasLabelContainingString(issue, sTring) {
@@ -99,11 +112,6 @@ class MilestoneIssues extends Component {
         } else if (issue.state === 'closed' && this.hasLabel(issue, 'qa: not needed')) {
           stateLabel = 'closed QA-';
           stateLabelColor = colors.verified;
-        } else if (issue.state === 'closed' &&
-            (this.hasLabel(issue, 'state: invalid') ||
-            this.hasLabel(issue, 'state: works for me'))) {
-          stateLabel = 'closed invalid';
-          stateLabelColor = colors.invalid;
         }
 
         let assigneeName = issue.assignee ? issue.assignee.login : 'unassigned';

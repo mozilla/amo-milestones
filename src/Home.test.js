@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';

@@ -31,6 +31,7 @@
     "test": "react-scripts test --env=jsdom",
     "test-coverage": "npm run test -- --coverage  --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/index.js --collectCoverageFrom=!src/setupTests.js",
     "test-coveralls": "npm run test-coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
   }
 }

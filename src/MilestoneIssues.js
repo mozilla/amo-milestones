@@ -132,6 +132,13 @@ class MilestoneIssues extends Component {
 
         const stateLabelTextColor = colourIsLight(stateLabelColor) ? '#000' : '#fff';
 
+        let priorityLabel;
+        if (this.hasLabelContainingString(issue, 'p1')) {
+          priorityLabel = <span className="p1">P1</span>;
+        } else if (this.hasLabelContainingString(issue, 'p2')) {
+          priorityLabel = <span className="p2">P2</span>;
+        }
+
         const repoName = issue.repository_url.split('/').slice(-1).join('/');
         /* eslint-disable jsx-a11y/href-no-hash */
         return (
@@ -146,6 +153,7 @@ class MilestoneIssues extends Component {
             </Td>
             <Td column="issue" className="issue-title">
               <a rel="noopener noreferrer" target="_blank" href={issue.html_url}>
+                {priorityLabel ? priorityLabel : null }
                 {issue.title} <span className="glyphicon glyphicon-link"></span>
               </a>
             </Td>

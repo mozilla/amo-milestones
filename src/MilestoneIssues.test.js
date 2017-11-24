@@ -76,6 +76,8 @@ describe('Milestones Page', () => {
                 color: '107c05',
                 name: 'state: in progress',
               }, {
+                name: 'priority: p1'
+              }, {
                 color: 'fef1af',
                 name: 'qa: not needed'
               }, {
@@ -96,6 +98,8 @@ describe('Milestones Page', () => {
               labels: [{
                 color: '107c05',
                 name: 'state: verified fixed'
+              }, {
+                name: 'priority: p2'
               }, {
                 color: '5319e7',
                 name: 'size: M'
@@ -164,6 +168,16 @@ describe('Milestones Page', () => {
         data.items.forEach((issue) => {
           expect(issue.labels.some(item => item.name === 'state: invalid')).toBe(false);
         });
+      });
+  });
+
+  it('p1 and p2 in titles', () => {
+    const wrapper = mount(<MilestoneIssues match={fakeMatch} />, { disableLifecycleMethods: true });
+    return wrapper.instance().getIssuesByMilestone('2017.06.10')
+      .then((data) => {
+        wrapper.update();
+        expect(wrapper.find('.p1')).toHaveLength(1);
+        expect(wrapper.find('.p2')).toHaveLength(1);
       });
   });
 

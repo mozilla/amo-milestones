@@ -16,6 +16,16 @@
   display: inline-block;
 }
 
+.p1,
+.p2 {
+  border: 1px solid rgba(255, 0, 57, 0.7);
+  border-radius: 3px;
+  color: rgba(255, 0, 57, 1);
+  padding: 3px 5px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+
 .contributor,
 .unassigned {
   height: 21px;
@@ -28,7 +38,7 @@
 }
 
 .contributor {
-  color: red;
+  color: #ff0039;
 }
 
 .unassigned {

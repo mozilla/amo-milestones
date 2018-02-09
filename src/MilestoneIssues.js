@@ -85,6 +85,11 @@ class MilestoneIssues extends Component {
     verified: '#00A21D',
     prReady: '#ffc107',
     open: '#666966',
+    p1: '#ff0039',
+    p2: '#d70022',
+    p3: '#a4000f',
+    p4: '#5a0002',
+    p5: '#3e0200',
   }
 
   render() {
@@ -132,12 +137,17 @@ class MilestoneIssues extends Component {
 
         const stateLabelTextColor = colourIsLight(stateLabelColor) ? '#000' : '#fff';
 
-        let priorityLabel;
-        if (this.hasLabelContainingString(issue, 'p1')) {
-          priorityLabel = <span className="p1">P1</span>;
-        } else if (this.hasLabelContainingString(issue, 'p2')) {
-          priorityLabel = <span className="p2">P2</span>;
-        }
+        let priorityLabel = null;
+        let issuePriority = '';
+
+        const priorities = ['p1', 'p2', 'p3', 'p4', 'p5'];
+
+        priorities.forEach((priority) => {
+          if (this.hasLabelContainingString(issue, priority)) {
+            priorityLabel = <span className={priority}>{priority.toUpperCase()}</span>;
+            issuePriority = priority;
+          }
+        });
 
         const repoName = issue.repository_url.split('/').slice(-1).join('/');
         /* eslint-disable jsx-a11y/href-no-hash */
@@ -151,9 +161,11 @@ class MilestoneIssues extends Component {
                 {assigneeName}
               </div>
             </Td>
+            <Td column="priority" className="issue-priority" value={issuePriority}>
+              {priorityLabel}
+            </Td>
             <Td column="issue" className="issue-title">
               <a rel="noopener noreferrer" target="_blank" href={issue.html_url}>
-                {priorityLabel ? priorityLabel : null }
                 {issue.title} <span className="glyphicon glyphicon-link"></span>
               </a>
             </Td>
@@ -180,6 +192,7 @@ class MilestoneIssues extends Component {
           column: 'assignee',
           sortFunction: this.issueSort
         },
+        'priority',
         'repo',
         'size',
         {
@@ -188,6 +201,7 @@ class MilestoneIssues extends Component {
         }]}>
           <Thead>
             <Th column="assignee">Assignee</Th>
+            <Th column="priority">Priority</Th>
             <Th column="issue">Issue</Th>
             <Th column="repo">Repo</Th>
             <Th column="details">Details</Th>

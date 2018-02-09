@@ -17,13 +17,34 @@
 }
 
 .p1,
-.p2 {
-  border: 1px solid rgba(255, 0, 57, 0.7);
+.p2,
+.p3,
+.p4,
+.p5 {
   border-radius: 3px;
-  color: rgba(255, 0, 57, 1);
+  color: #fff;
   padding: 3px 5px;
-  margin-right: 5px;
   font-size: 12px;
+}
+
+.p1 {
+  background: #ff0039;
+}
+
+.p2 {
+  background: #d70022;
+}
+
+.p3 {
+  background: #a4000f;
+}
+
+.p4 {
+  background: #5a0002;
+}
+
+.p5 {
+  background: #3e0200;
 }
 
 .contributor,

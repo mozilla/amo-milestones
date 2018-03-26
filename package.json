@@ -10,7 +10,7 @@
     "react-bootstrap": "0.32.1",    
     "react-dom": "16.2.0",
     "react-helmet": "5.0.3",
-    "react-router-dom": "4.2.2",
+    "react-router-dom": "4.3.0-rc.1",
     "reactable": "muffinresearch/reactable"
   },
   "devDependencies": {

@@ -22,7 +22,7 @@
     "jest-enzyme": "^4.0.1",
     "jest-runtime": "^21.2.1",
     "react-scripts": "^1.0.17",
-    "react-test-renderer": "^16.1.1",
+    "react-test-renderer": "^16.5.0",
     "sinon": "^4.0.2"
   },
   "scripts": {

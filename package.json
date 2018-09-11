@@ -6,9 +6,9 @@
     "bootstrap": "3",
     "dompurify": "^1.0.3",
     "markdown-it": "8.4.1",
-    "react": "16.2.0",
+    "react": "16.5.0",
     "react-bootstrap": "0.32.1",    
-    "react-dom": "16.2.0",
+    "react-dom": "16.5.0",
     "react-helmet": "5.0.3",
     "react-router-dom": "4.2.2",
     "reactable": "muffinresearch/reactable"
@@ -22,7 +22,7 @@
     "jest-enzyme": "^4.0.1",
     "jest-runtime": "^21.2.1",
     "react-scripts": "^1.0.17",
-    "react-test-renderer": "^16.1.1",
+    "react-test-renderer": "^16.5.0",
     "sinon": "^6.0.1"
   },
   "scripts": {

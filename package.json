@@ -6,7 +6,7 @@
     "bootstrap": "3",
     "dompurify": "^1.0.3",
     "markdown-it": "8.4.1",
-    "react": "16.5.0",
+    "react": "16.5.1",
     "react-bootstrap": "0.32.4",  
     "react-dom": "16.5.0",
     "react-helmet": "5.0.3",

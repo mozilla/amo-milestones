@@ -5,6 +5,7 @@ export const REPOS = [
   'addons-frontend',
   'addons-linter',
   'addons-server',
+  'addons-code-manager',
 ];
 export const VALID_MILESTONE_RX = /^\d{4}[.-]\d{2}[.-]\d{2}$/
 

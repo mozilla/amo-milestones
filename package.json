@@ -23,7 +23,7 @@
     "jest-runtime": "^21.2.1",
     "react-scripts": "^1.0.17",
     "react-test-renderer": "^16.5.0",
-    "sinon": "^6.0.1"
+    "sinon": "^7.2.3"
   },
   "scripts": {
     "start": "react-scripts start",

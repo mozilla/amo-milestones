@@ -149,7 +149,11 @@ class MilestoneIssues extends Component {
           }
         });
 
-        const repoName = issue.repository_url.split('/').slice(-1).join('/');
+        const repoName = issue.repository_url
+          .split('/')
+          .slice(-1)
+          .join('/')
+          .replace('addons-', '');
         /* eslint-disable jsx-a11y/href-no-hash */
         return (
           <Tr key={idx}>

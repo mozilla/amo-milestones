@@ -19,7 +19,7 @@
     "enzyme-adapter-react-16": "1.10.0",
     "fetch-mock": "7.3.0",
     "jest-enzyme": "7.0.1",
-    "react-scripts": "1.0.17",
+    "react-scripts": "2.1.5",
     "react-test-renderer": "16.5.0",
     "sinon": "6.2.0"
   },
@@ -31,5 +31,11 @@
     "test-coveralls": "npm run test-coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "eject": "react-scripts eject",
     "lint": "eslint src"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

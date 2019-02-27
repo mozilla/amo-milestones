@@ -17,7 +17,7 @@
     "coveralls": "3.0.3",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.10.0",
-    "fetch-mock": "6.5.2",
+    "fetch-mock": "7.3.0",
     "jest": "22.4.4",
     "jest-enzyme": "6.0.4",
     "jest-runtime": "21.2.1",

@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/mozilla/amo-milestones.svg?branch=master)](https://travis-ci.org/mozilla/amo-milestones)
 [![Coverage Status](https://coveralls.io/repos/github/mozilla/amo-milestones/badge.svg?branch=master)](https://coveralls.io/github/mozilla/amo-milestones?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/mozilla/amo-milestones.svg)](https://greenkeeper.io/)
 
 
 # amo-milestones

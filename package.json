@@ -6,10 +6,10 @@
     "bootstrap": "3.4.1",
     "dompurify": "1.0.10",
     "markdown-it": "8.4.1",
-    "react": "16.5.0",
+    "react": "16.8.3",
     "react-bootstrap": "0.32.4",
-    "react-dom": "16.5.0",
-    "react-helmet": "5.0.3",
+    "react-dom": "16.8.3",
+    "react-helmet": "5.2.0",
     "react-router-dom": "4.3.1",
     "reactable": "muffinresearch/reactable"
   },
@@ -20,7 +20,7 @@
     "fetch-mock": "7.3.0",
     "jest-enzyme": "7.0.1",
     "react-scripts": "2.1.5",
-    "react-test-renderer": "16.5.0",
+    "react-test-renderer": "16.8.3",
     "sinon": "7.2.5"
   },
   "scripts": {

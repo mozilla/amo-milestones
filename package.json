@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "3.4.0",
-    "dompurify": "^1.0.3",
+    "dompurify": "1.0.3",
     "markdown-it": "8.4.1",
     "react": "16.5.0",
     "react-bootstrap": "0.32.4",
@@ -14,16 +14,16 @@
     "reactable": "muffinresearch/reactable"
   },
   "devDependencies": {
-    "coveralls": "^3.0.0",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
-    "fetch-mock": "^6.5.2",
-    "jest": "^22.1.4",
-    "jest-enzyme": "^6.0.4",
-    "jest-runtime": "^21.2.1",
-    "react-scripts": "^1.0.17",
-    "react-test-renderer": "^16.5.0",
-    "sinon": "^6.0.1"
+    "coveralls": "3.0.0",
+    "enzyme": "3.6.0",
+    "enzyme-adapter-react-16": "1.5.0",
+    "fetch-mock": "6.5.2",
+    "jest": "22.4.4",
+    "jest-enzyme": "6.0.4",
+    "jest-runtime": "21.2.1",
+    "react-scripts": "1.0.17",
+    "react-test-renderer": "16.5.0",
+    "sinon": "6.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

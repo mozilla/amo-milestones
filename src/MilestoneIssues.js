@@ -154,7 +154,7 @@ class MilestoneIssues extends Component {
           .slice(-1)
           .join('/')
           .replace('addons-', '');
-        /* eslint-disable jsx-a11y/href-no-hash */
+        /* eslint-disable jsx-a11y/anchor-is-valid */
         return (
           <Tr key={idx}>
             <Td column="assignee" className="gh-username" value={issue}>

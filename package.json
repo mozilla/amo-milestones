@@ -9,7 +9,7 @@
     "react": "16.8.3",
     "react-bootstrap": "0.32.4",
     "react-dom": "16.8.3",
-    "react-helmet": "5.2.0",
+    "react-helmet": "5.2.1",
     "react-router-dom": "4.3.1",
     "reactable": "muffinresearch/reactable"
   },

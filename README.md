@@ -1,3 +1,4 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 [![Build Status](https://travis-ci.org/mozilla/amo-milestones.svg?branch=master)](https://travis-ci.org/mozilla/amo-milestones)
 [![Coverage Status](https://coveralls.io/repos/github/mozilla/amo-milestones/badge.svg?branch=master)](https://coveralls.io/github/mozilla/amo-milestones?branch=master)
 
